@@ -1,0 +1,20 @@
+- block:
+    - name: create portainer agent directory
+      file:
+        path: '{{ services_base_path }}/portainer-agent'
+        state: directory
+
+    - name: update portainer agent config
+      ansible.builtin.template:
+        src: '{{ role_path }}/files/docker-compose.portainer-agent.yml'
+        dest: '{{ services_base_path }}/portainer-agent/docker-compose.yml'
+
+    - name: deploy portainer agent
+      docker_compose:
+        project_src: '{{ services_base_path }}/portainer-agent'
+        files:
+          - 'docker-compose.yml'
+  when: install_portainer_agent == true
+  become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3 

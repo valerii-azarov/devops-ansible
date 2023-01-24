@@ -1,0 +1,2 @@
+[devops-playground]
+azarov-playground                       ansible_host=192.168.0.101 ansible_user=azarov ansible_port=22

@@ -1,0 +1,6 @@
+---
+# handlers file for system
+- name: Restart docker
+  ansible.builtin.systemd:
+    state: restarted
+    name: docker

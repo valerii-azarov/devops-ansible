@@ -1,0 +1,7 @@
+---
+# vars file for docker
+docker_compose_base_name: "docker-compose.yml"
+services_base_path: "/services"
+monitoring_base_path: "{{ services_base_path }}/monitoring"
+
+alertmanager_url: ""

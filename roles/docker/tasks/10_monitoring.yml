@@ -1,0 +1,27 @@
+- block:
+    - name: create monitoring base directories
+      file:
+        path: '{{ item }}'
+        state: directory
+      with_items:
+        - '{{ monitoring_base_path }}'
+
+    - name: copy monitoring files
+      copy:
+        src: '{{ role_path }}/files/monitoring'
+        dest: '{{ monitoring_base_path }}/..'
+
+    - name: update monitoring configs
+      ansible.builtin.template:
+        src: '{{ role_path }}/files/monitoring/{{ item }}'
+        dest: '{{ monitoring_base_path }}/{{ item }}'
+      with_items:
+        - '{{ docker_compose_base_name }}'
+
+    - name: deploy monitoring stack
+      docker_compose:
+        project_src: '{{ monitoring_base_path }}'
+        files:
+          - '{{ docker_compose_base_name }}'
+  when: setup_monitoring == true
+  become: true

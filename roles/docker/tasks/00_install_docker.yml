@@ -1,0 +1,28 @@
+- block:
+    - name: Install dependencies Debian/Ubuntu
+      apt:
+        update_cache: yes
+        name:
+          - curl
+          - git
+          - apt-transport-https
+          - python3-pip
+        state: latest
+
+    - name: Get package facts
+      package_facts:
+        manager: "auto"
+
+    - name: Install docker
+      shell: curl -fsSL https://get.docker.com | sh
+      when: "'docker-ce' not in ansible_facts.packages"
+
+    - name: Add users to docker group
+      user:
+        name: "{{ item }}"
+        groups: docker
+        append: yes
+      with_items:
+        - azarov
+  when: ansible_os_family == "Debian"
+  become: true

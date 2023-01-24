@@ -1,0 +1,6 @@
+---
+# tasks file for docker
+- include_tasks: 00_install_docker.yml
+- include_tasks: 01_add_dependencies.yml
+- include_tasks: 03_install portainer_agent.yml
+#- include_tasks: 10_monitoring.yml

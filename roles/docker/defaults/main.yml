@@ -1,0 +1,4 @@
+---
+# defaults file for docker
+install_portainer_agent: false
+setup_monitoring: false

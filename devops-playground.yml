@@ -1,0 +1,5 @@
+- name: devops-course servers
+  hosts: devops-playground
+  roles:
+    - role: docker
+      install_portainer_agent: true
